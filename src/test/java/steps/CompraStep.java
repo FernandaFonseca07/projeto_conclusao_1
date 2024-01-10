@@ -6,8 +6,10 @@ import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.CadastroPage;
 import pages.CarrinhoPage;
 import pages.HomePage;
 import pages.ProdutoPage;
@@ -20,6 +22,8 @@ public class CompraStep {
     HomePage homePage;
     ProdutoPage produtoPage;
     CarrinhoPage carrinhoPage;
+    CadastroPage cadastroPage;
+    String mensagemTela = "Já existe uma conta com esse e-mail";
 
     @Before
     public void setupBefore(){
@@ -29,7 +33,7 @@ public class CompraStep {
         homePage = new HomePage(driver);
         produtoPage = new ProdutoPage(driver);
         carrinhoPage = new CarrinhoPage(driver);
-
+        cadastroPage = new CadastroPage(driver);
     }
 
     @Dado("que esteja na pagina inicial {string}")
@@ -49,36 +53,22 @@ public class CompraStep {
         produtoPage.indoParaCarrinho();
     }
 
-    @Quando("estiver no carrinho acrescentar e retirar produto\\/quantidade")
+    @Quando("estiver no carrinho acrescentar e retirar produto\\/quantidade e fechar carrinho")
     public void estiverNoCarrinhoAcrescentarERetirarProdutoQuantidade() throws InterruptedException {
         carrinhoPage.aumentarQtdItem();
         carrinhoPage.adicionandoSegundoProduto();
         carrinhoPage.fechandoPedidoECriandoConta();
     }
 
-    @E("clicar em finalizar a conta indo para a tela de acesso")
-    public void clicarEmFinalizarAContaIndoParaATelaDeAcesso() {
+    @E("criar conta")
+    public void clicarEmFinalizarAContaIndoParaATelaDeAcesso() throws FileNotFoundException, InterruptedException {
+        cadastroPage.inserindoInformacoesCadastro();
     }
 
-    @E("criar conta usando email")
-    public void criarContaUsandoEmail() {
-    }
-
-    @E("concluir as etapas de criacao")
-    public void concluirAsEtapasDeCriacao() {
-    }
-
-    @E("endereco de entrega")
-    public void enderecoDeEntrega() {
-    }
-
-    @E("dados do cartao")
-    public void dadosDoCartao() {
-    }
 
     @Entao("verifica se chegou na etapa final da compra")
     public void verificaSeChegouNaEtapaFinalDaCompra() {
-
+        Assert.assertTrue(driver.getPageSource().contains(mensagemTela));
     }
 
     @After

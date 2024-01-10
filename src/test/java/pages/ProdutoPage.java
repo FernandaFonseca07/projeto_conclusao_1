@@ -13,12 +13,12 @@ public class ProdutoPage {
 
     public void adicionandoNoCarrinho() throws InterruptedException {
         driver.findElement(By.xpath(adicionarCarinho)).click();
-        Thread.sleep(3000);
+        Thread.sleep(5000);
         driver.findElement(By.xpath(recusaSeguro)).click();
     }
 
     public void indoParaCarrinho () throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(5000);
         driver.findElement(By.xpath(irParaCarinho)).click();
     }
 }

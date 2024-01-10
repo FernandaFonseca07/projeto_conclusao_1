@@ -38,7 +38,7 @@ public class HomePage {
     }
 
     public void selecionarPrimeiroProduto() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(8000);
         driver.findElement(By.xpath(primeiroProduto)).click();
     }
 
