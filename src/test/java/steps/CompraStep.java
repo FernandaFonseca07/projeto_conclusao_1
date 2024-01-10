@@ -8,6 +8,7 @@ import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.CarrinhoPage;
 import pages.HomePage;
 import pages.ProdutoPage;
 
@@ -18,6 +19,7 @@ public class CompraStep {
     WebDriver driver;
     HomePage homePage;
     ProdutoPage produtoPage;
+    CarrinhoPage carrinhoPage;
 
     @Before
     public void setupBefore(){
@@ -26,6 +28,7 @@ public class CompraStep {
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         homePage = new HomePage(driver);
         produtoPage = new ProdutoPage(driver);
+        carrinhoPage = new CarrinhoPage(driver);
 
     }
 
@@ -47,7 +50,10 @@ public class CompraStep {
     }
 
     @Quando("estiver no carrinho acrescentar e retirar produto\\/quantidade")
-    public void estiverNoCarrinhoAcrescentarERetirarProdutoQuantidade() {
+    public void estiverNoCarrinhoAcrescentarERetirarProdutoQuantidade() throws InterruptedException {
+        carrinhoPage.aumentarQtdItem();
+        carrinhoPage.adicionandoSegundoProduto();
+        carrinhoPage.fechandoPedidoECriandoConta();
     }
 
     @E("clicar em finalizar a conta indo para a tela de acesso")
